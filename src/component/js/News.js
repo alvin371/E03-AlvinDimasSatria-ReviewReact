@@ -5,20 +5,24 @@ import { useEffect, useState } from 'react';
 import axios from 'axios'
 
 const News = () => {
-    const [posts, setPosts] = useState([])
+    const [data, setData] = useState([])
+    const news = async () => {
+        try {
+            const res = await axios.get('https://newsapi.org/v2/everything', {
+                params: {
+                    domains: 'wsj.com',
+                    apiKey: '07096130c11e4e868a1bb6ae3eb8942c',
+                }
+            })
+            console.log(res.data)
+            setData(res.data.articles)
+        } catch (err) {
+            console.log(err.message)
+        }
+    }
 
     useEffect(() => {
-        axios.get('https://newsapi.org/v2/everything', {
-            params: {
-                domains: 'wsj.com',
-                apiKey: '07096130c11e4e868a1bb6ae3eb8942c',
-            }
-        }).then(res => {
-            console.log(res)
-            setPosts(res.data)
-        }).catch(err => {
-            console.log(err.message)
-        })
+        news()
     }, [])
     return (
         <div id="Home">
@@ -40,15 +44,14 @@ const News = () => {
             </nav>
             <div className="content">
                 <div className="row">
-                    {posts.map(post => (
+                    {data && (data.map(datas => (
                         <div className="card m-4" style={{ width: '18rem', }}>
-                            <img src={post.urlToImage} className="card-img-top" alt="..." />
+                            <img src={datas.urlToImage} className="card-img-top" alt="..." />
                             <div className="card-body">
-                                <p className="card-text">{post.description}</p>
+                                <p className="card-text">{datas.title}</p>
                             </div>
                         </div>
-                    ))
-                    }
+                    )))}
                 </div>
             </div>
         </div>
