@@ -3,9 +3,11 @@ import logo from '../img/logo-ALTA.png';
 import '../css/style.css';
 import { useEffect, useState } from 'react';
 import axios from 'axios'
+import Loading from './Loading';
 
 const News = () => {
     const [data, setData] = useState([])
+    const [loading, setLoading] = useState(false)
     const news = async () => {
         try {
             const res = await axios.get('https://newsapi.org/v2/everything', {
@@ -16,6 +18,7 @@ const News = () => {
             })
             console.log(res.data)
             setData(res.data.articles)
+            setLoading(true)
         } catch (err) {
             console.log(err.message)
         }
@@ -42,6 +45,7 @@ const News = () => {
                     </div>
                 </div>
             </nav>
+            {loading ? news : <Loading />}
             <div className="content">
                 <div className="row">
                     {data && (data.map(datas => (

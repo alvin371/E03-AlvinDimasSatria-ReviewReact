@@ -1,6 +1,9 @@
 import '../css/result.css'
+import { Link } from "react-router-dom";
 import photo from "../img/img-dot.png"
+import { useSelector } from "react-redux";
 const Result = () => {
+    const value = useSelector((state) => state.user.value);
     return (
         <div>
             <div className="container" id="review">
@@ -15,29 +18,29 @@ const Result = () => {
                         <tbody><tr>
                             <td>Full Name</td>
                             <td>:</td>
-                            <td>Mike Wazowski</td>
+                            <td>{value.name}</td>
                         </tr>
                             <tr>
                                 <td>Email Address</td>
                                 <td>:</td>
-                                <td>mr.wazowski@email.com</td>
+                                <td>{value.email}</td>
                             </tr>
                             <tr>
                                 <td>Phone Number</td>
                                 <td>:</td>
-                                <td>081234567890</td>
+                                <td>{value.phone}</td>
                             </tr>
                             <tr>
                                 <td>Nationality</td>
                                 <td>:</td>
-                                <td>Indonesian</td>
+                                <td>{value.nationality}</td>
                             </tr>
                             <tr>
                             </tr>
                         </tbody></table>
                     <div className="row mt-5 mb-3">
                         <div className="col-12">
-                            <h5>Hi Anne, I’m Mike from Monsters, Inc. I’ve seen your previous project and it was really amazing.
+                            <h5>Hi {value.name}, I’m Mike from Monsters, Inc. I’ve seen your previous project and it was really amazing.
                                 And as you know our company are planning to build new mobile application. I hope you can join us
                                 to develope this application. We look forward to hearing from you and hope you’ll join our
                                 project!
@@ -55,7 +58,7 @@ const Result = () => {
                                 We will be in touch with you shortly.</h3>
                         </div>
                     </div>
-                    <button className="btn btn-home rounded-pill py-2 px-5 mt-3">Home</button>
+                    <Link className="btn btn-home rounded-pill py-2 px-5 mt-3" to="/">Home</Link>
                 </div>
             </div>
             <footer>
